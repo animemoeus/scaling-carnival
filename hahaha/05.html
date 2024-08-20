@@ -10,11 +10,15 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
   </head>
 
   <body class="min-vh-100 p-2">
     <div class="border rounded shadow p-1">
-      <table class="table table-hover">
+      <table class="table table-hover animate__animated animate__fadeIn">
         <thead>
           <tr>
             <th scope="col">PK</th>
@@ -25,7 +29,6 @@
         </thead>
         <tbody id="tbody"></tbody>
       </table>
-      <button type="button" class="btn btn-primary">Primary</button>
     </div>
 
     <script>
@@ -55,10 +58,11 @@
 
       function refreshTable() {
         // Show the current limitedResult data
-        console.log(limitedResult);  // This is for demonstration purposes only
+        console.log(limitedResult); // This is for demonstration purposes only
 
         let tbody = document.getElementById("tbody");
         tbody.innerHTML = "";
+        tbody.classList.add("animate__animated", "animate__fadeIn");
 
         limitedResult.forEach((element, idx) => {
           let tr = document.createElement("tr");
@@ -77,7 +81,7 @@
           deleteButton.classList.add("btn", "btn-danger", "btn-sm");
           deleteButton.addEventListener("click", () => {
             const confirmDelete = confirm(
-              `Apakah kamu yakin ingin menghapus data ini?`
+              `Apakah kamu yakin ingin menghapus "${element.title}" ?`
             );
 
             if (confirmDelete) {
