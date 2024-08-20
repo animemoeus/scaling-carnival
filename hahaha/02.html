@@ -1,77 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Document</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-</head>
-
-<body class="min-vh-100">
-  <div class="container-sm p-3">
-    <div class="card text-center">
-      <div class="card-header">
-        <h5 class="">Update Name</h5>
+  <body class="min-vh-100">
+    <div class="container-sm p-3">
+      <div class="card text-center">
+        <div class="card-header">
+          <h5 class="">Update Name</h5>
+        </div>
+        <div class="card-body">
+          <label for="name" class="form-label card-title">Name</label>
+          <input id="inputName" type="text" class="form-control" />
+          <button
+            type="button"
+            class="btn btn-primary mt-2"
+            onclick="handleUpdateButton()"
+          >
+            Update
+          </button>
+        </div>
+        <div id="currentName" class="card-footer text-body-secondary"></div>
       </div>
-      <div class="card-body">
-        <label for="name" class="form-label card-title">Name</label>
-        <input id="inputName" type="text" class="form-control" />
-        <button type="button" class="btn btn-primary mt-2" onclick="handleUpdateButton()">
-          Update
-        </button>
-      </div>
-      <div id="currentName" class="card-footer text-body-secondary"></div>
     </div>
-  </div>
 
-  <script>
-    const users = [
-      {
-        id: 1,
-        name: "Leanne Graham",
-        username: "Bret",
-        email: "Sincere@april.biz",
-        phone: "1-770-736-8031 x56442",
-        website: "hildegard.org",
-      },
-      {
-        id: 2,
-        name: "Ervin Howell",
-        username: "Antonette",
-        email: "Shanna@melissa.tv",
-        phone: "010-692-6593 x09125",
-        website: "anastasia.net",
-      },
-    ];
+    <script>
+      const users = [
+        {
+          id: 1,
+          name: "Leanne Graham",
+          username: "Bret",
+          email: "Sincere@april.biz",
+          phone: "1-770-736-8031 x56442",
+          website: "hildegard.org",
+        },
+        {
+          id: 2,
+          name: "Ervin Howell",
+          username: "Antonette",
+          email: "Shanna@melissa.tv",
+          phone: "010-692-6593 x09125",
+          website: "anastasia.net",
+        },
+      ];
 
-    const sample = users[0];
-    const currentName = document.getElementById("currentName");
-    const inputName = document.getElementById("inputName");
+      const sample = users[0];
+      const currentName = document.getElementById("currentName");
+      const inputName = document.getElementById("inputName");
 
-    function updateCurrentNameText(name) {
-      currentName.innerHTML = `Current Name: ${name}`;
-    }
-
-    function handleUpdateButton() {
-      if (!inputName.value) {
-        alert("Nama tidak boleh kosong!");
-        return;
+      function updateCurrentNameText(name) {
+        currentName.innerHTML = `Current Name: ${name}`;
       }
 
-      users[0].name = inputName.value;
+      function handleUpdateButton() {
+        if (!inputName.value) {
+          alert("Nama tidak boleh kosong!");
+          return;
+        }
+
+        users[0].name = inputName.value;
+        updateCurrentNameText(sample.name);
+
+        // Reset the input field
+        inputName.value = "";
+
+        // Check the current value
+        console.log(sample);
+      }
+
       updateCurrentNameText(sample.name);
-
-      // Reset the input field
-      inputName.value = "";
-
-      // Check the current value
-      console.log(sample);
-    }
-
-    updateCurrentNameText(sample.name);
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
