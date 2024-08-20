@@ -17,7 +17,7 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">PK</th>
             <th scope="col">Title</th>
             <th scope="col">Body</th>
             <th scope="col">Action</th>
@@ -29,7 +29,7 @@
     </div>
 
     <script>
-      let limitedReulst = [];
+      let limitedResult = [];
 
       function getData() {
         const requestOptions = {
@@ -41,53 +41,57 @@
           .then((response) => response.json())
           .then((result) => {
             // Get the first 10 elements from the result
-            limitedReulst = result.slice(0, 10);
+            limitedResult = result.slice(0, 10);
 
-            limitedReulst.forEach((element) => {
-              addDataToTable(element);
-            });
+            refreshTable();
           })
           .catch((error) => console.error(error));
       }
 
-      function addDataToTable(data) {
-        let tbody = document.getElementById("tbody");
-
-        let tr = document.createElement("tr");
-        let index = document.createElement("td");
-        let title = document.createElement("td");
-        let body = document.createElement("td");
-        let actions = document.createElement("td");
-
-        index.textContent = data.id;
-        title.textContent = data.title;
-        body.textContent = data.body;
-
-        let deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.classList.add("btn", "btn-danger", "btn-sm");
-        deleteButton.addEventListener("click", () => {
-          const confirmDelete = confirm(
-            `Apakah kamu yaking ingin menghapus data ini?`
-          );
-
-          if (confirmDelete) {
-            tr.remove();
-          }
-        });
-
-        actions.append(deleteButton);
-
-        tr.appendChild(index);
-        tr.appendChild(title);
-        tr.appendChild(body);
-        tr.append(actions);
-        tbody.appendChild(tr);
+      function deleteData(index) {
+        limitedResult.splice(index, 1);
+        refreshTable();
       }
 
       function refreshTable() {
-        limitedReulst.forEach((element) => {
-          addDataToTable(element);
+        // Show the current limitedResult data
+        console.log(limitedResult);  // This is for demonstration purposes only
+
+        let tbody = document.getElementById("tbody");
+        tbody.innerHTML = "";
+
+        limitedResult.forEach((element, idx) => {
+          let tr = document.createElement("tr");
+          let index = document.createElement("td");
+          let title = document.createElement("td");
+          let body = document.createElement("td");
+
+          let actions = document.createElement("td");
+          let deleteButton = document.createElement("button");
+
+          index.textContent = element.id;
+          title.textContent = element.title;
+          body.textContent = element.body;
+
+          deleteButton.textContent = "Delete";
+          deleteButton.classList.add("btn", "btn-danger", "btn-sm");
+          deleteButton.addEventListener("click", () => {
+            const confirmDelete = confirm(
+              `Apakah kamu yakin ingin menghapus data ini?`
+            );
+
+            if (confirmDelete) {
+              deleteData(idx);
+            }
+          });
+
+          actions.append(deleteButton);
+
+          tr.appendChild(index);
+          tr.appendChild(title);
+          tr.appendChild(body);
+          tr.append(actions);
+          tbody.appendChild(tr);
         });
       }
 
