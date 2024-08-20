@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body class="min-vh-100 p-2">
+    <div class="border rounded shadow p-1">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Body</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <script>
+      function getData() {
+        const requestOptions = {
+          method: "GET",
+          redirect: "follow",
+        };
+
+        fetch("https://jsonplaceholder.typicode.com/posts", requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            // Get the first 10 elements from the result
+            const limitedReulst = result.slice(0, 10);
+
+            limitedReulst.forEach((element) => {
+              addDataToTable(element);
+            });
+          })
+          .catch((error) => console.error(error));
+      }
+
+      function addDataToTable(data) {
+        let tbody = document.getElementById("tbody");
+
+        let tr = document.createElement("tr");
+        let index = document.createElement("td");
+        let title = document.createElement("td");
+        let body = document.createElement("td");
+
+        index.textContent = data.id;
+        title.textContent = data.title;
+        body.textContent = data.body;
+
+        tr.appendChild(index);
+        tr.appendChild(title);
+        tr.appendChild(body);
+        tbody.appendChild(tr);
+      }
+
+      getData();
+    </script>
+  </body>
+</html>
